@@ -4,21 +4,23 @@ plugins {
 }
 
 android {
-    // 1. 和主模块 app 对齐
+    namespace 'com.undcover.freedom.pyramid'
+
     compileSdk 34
     
-    // ✨ 核心修复：增加一个 mode 维度，和主模块的 flavorDimensions 保持一致
-    flavorDimensions = ["mode"]
+    // ✨ 核心修复：把维度降为最简单的 "default"，以便和主模块 app 对齐
+    flavorDimensions = ["default"]
 
     defaultConfig {
         // ✨ 核心修复：把 minSdk 改为 19，兼容 Android 4.4
         minSdk 19
         targetSdk 34 // 目标 SDK 也跟上
 
-        // ✨✨✨ 就是在这里！补上 CPU 架构指令 ✨✨✨
+        // ✨ 核心修复：补上 CPU 架构指令
         ndk { abiFilters "armeabi-v7a", "arm64-v8a" }
 
         python {
+            version "3.8"
             // ✨ 核心修复：告诉 Chaquopy 自动查找 Python 解释器
             buildPython "python3"
             
@@ -37,14 +39,12 @@ android {
         }
     }
     
-    // ✨ 核心修复：补上 leanback 和 mobile，即使是空壳也要有
     productFlavors {
+        // ✨ 核心修复：只保留一个 leanback，并将其维度设为 "default"
         leanback {
-            dimension "mode"
+            dimension "default"
         }
-        mobile {
-            dimension "mode"
-        }
+        // mobile, x86 等其他 flavor 全部删除！
     }
 }
 
