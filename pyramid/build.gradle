@@ -6,14 +6,22 @@ plugins {
 android {
     namespace 'com.undcover.freedom.pyramid'
 
+    // 1. 和主模块 app 对齐
     compileSdk 34
-    flavorDimensions = ["abi"]
+    
+    // ✨ 核心修复：增加一个 mode 维度，和主模块 app 的 flavorDimensions 保持一致
+    flavorDimensions = ["mode", "abi"]
 
     defaultConfig {
-        minSdk 21
-        targetSdk 28
+        // ✨ 核心修复：把 minSdk 降下来，兼容 Android 4.4
+        minSdk 19
+        targetSdk 34 // 目标 SDK 也跟上
+
         python {
             version "3.8"
+            // ✨ 核心修复：告诉 Chaquopy 去哪里找 Python 解释器
+            buildPython "python3"
+            
             pip {
                 install "lxml"
                 install "requests"
@@ -24,6 +32,15 @@ android {
     }
 
     productFlavors {
+        // ✨ 核心修复：补上 leanback 和 mobile，即使是空壳也要有，不然 Gradle 会报错
+        leanback {
+            dimension "mode"
+        }
+        mobile {
+            dimension "mode"
+        }
+        
+        // 保留哥哥原有的 CPU 架构配置
         x86 {
             dimension "abi"
             ndk { abiFilters "x86" }
@@ -37,14 +54,4 @@ android {
             ndk { abiFilters "armeabi-v7a" }
         }
     }
-
-    sourceSets {
-        main {
-            python.srcDirs = ["src/main/python"]
-        }
-    }
-}
-
-dependencies {
-    implementation project(':catvod')
 }
