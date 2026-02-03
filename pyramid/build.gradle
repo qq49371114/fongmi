@@ -20,7 +20,7 @@ android {
         ndk { abiFilters "armeabi-v7a", "arm64-v8a" }
 
         python {
-            version "3.8"
+            //version "3.8"
             // ✨ 核心修复：告诉 Chaquopy 自动查找 Python 解释器
             buildPython "python3"
             
