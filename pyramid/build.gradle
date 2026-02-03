@@ -4,14 +4,21 @@ plugins {
 }
 
 android {
+    // 1. 和主模块 app 对齐
     compileSdk 34
+    
+    // ✨ 核心修复：增加一个 mode 维度，和主模块的 flavorDimensions 保持一致
+    flavorDimensions = ["mode"]
 
     defaultConfig {
-        minSdk 16
-        targetSdk 28
-        ndk { abiFilters "armeabi-v7a" }
+        // ✨ 核心修复：把 minSdk 改为 19，兼容 Android 4.4
+        minSdk 19
+        targetSdk 34 // 目标 SDK 也跟上
+
         python {
-            buildPython "C:/Users/FongMi/AppData/Local/Programs/Python/Python38/python.exe"
+            // ✨ 核心修复：告诉 Chaquopy 自动查找 Python 解释器
+            buildPython "python3"
+            
             pip {
                 install "lxml"
                 install "requests"
@@ -24,6 +31,16 @@ android {
     sourceSets {
         main {
             python.srcDirs = ["src/main/python"]
+        }
+    }
+    
+    // ✨ 核心修复：补上 leanback 和 mobile，即使是空壳也要有
+    productFlavors {
+        leanback {
+            dimension "mode"
+        }
+        mobile {
+            dimension "mode"
         }
     }
 }
