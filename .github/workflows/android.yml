@@ -30,6 +30,8 @@ jobs:
         with:
           python-version: '3.8' # 明确指定一个和 Chaquopy 兼容性最好的版本
           cache: 'pip'
+          # ✨✨✨ 就是在这里！添加下面这行代码 ✨✨✨
+          cache-dependency-path: '**/non-existent-file' # 告诉它不要自动找依赖文件
 
       # 步骤 4: 创建本地配置文件 (解决 SDK 路径问题)
       - name: Create local.properties
