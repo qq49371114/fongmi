@@ -3,38 +3,30 @@ plugins {
 }
 
 android {
-    // 1. 升级编译工具
     compileSdk 34
     buildToolsVersion "34.0.0"
 
-    // 2. 简化 flavor，只保留电视版
+    // 1. 核心：把三个维度，降成一个！
     flavorDimensions = ["default"]
+
+    defaultConfig {
+        applicationId "com.fongmi.android.tv"
+        minSdk 19
+        targetSdk 34
+        versionCode 241
+        versionName "2.4.1-kitkat-revived"
+        multiDexEnabled true
+        ndk { abiFilters "armeabi-v7a" } // 只保留一个核心架构
+    }
+
+    // 2. 核心：只保留 leanback，其他的全不要！
     productFlavors {
         leanback {
             dimension "default"
         }
     }
 
-    defaultConfig {
-        applicationId "com.fongmi.android.tv"
-        // ✨ 核心：死守 Android 4.4 (KitKat) 的底线！
-        minSdk 19
-        targetSdk 34
-        versionCode 241
-        versionName "2.4.1-kitkat-revived"
-        multiDexEnabled true
-        ndk { abiFilters "armeabi-v7a" }
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
-            }
-        }
-    }
-
-    buildFeatures {
-        viewBinding true
-    }
-
+    buildFeatures { viewBinding true }
     buildTypes {
         release {
             minifyEnabled true
@@ -42,12 +34,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
-    packagingOptions {
-        exclude 'META-INF/beans.xml'
-    }
-
-    // 开启 Java 8+ 支持
+    packagingOptions { exclude 'META-INF/beans.xml' }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
