@@ -19,4 +19,6 @@ dependencies {
     implementation project(':catvod')
     //implementation(ext: 'aar', name: 'lib-ui-release', group: 'fongmi', version: 'release')
     //implementation(ext: 'aar', name: 'lib-common-release', group: 'fongmi', version: 'release')
+    // ✨✨✨ 就是在这里！给 ijkplayer 输血！ ✨✨✨
+        implementation 'com.google.android.exoplayer:exoplayer-ui:2.14.2'
 }
