@@ -90,9 +90,9 @@ dependencies {
     // implementation(ext: 'aar', name: 'lib-exoplayer-smoothstreaming-release', group: 'fongmi', version: 'release')
     // implementation(ext: 'aar', name: 'lib-extractor-release', group: 'fongmi', version: 'release')
     // implementation(ext: 'aar', name: 'lib-ui-release', group: 'fongmi', version: 'release')
-     implementation(ext: 'aar', name: 'dlna-core', group: 'fongmi', version: 'release')
-     implementation(ext: 'aar', name: 'dlna-dmr', group: 'fongmi', version: 'release')
-     implementation(ext: 'aar', name: 'dlna-dmc', group: 'fongmi', version: 'release')
+     //implementation(ext: 'aar', name: 'dlna-core', group: 'fongmi', version: 'release')
+     //implementation(ext: 'aar', name: 'dlna-dmr', group: 'fongmi', version: 'release')
+     //implementation(ext: 'aar', name: 'dlna-dmc', group: 'fongmi', version: 'release')
 
     // 3. ✨✨✨ 核心：注入“公版”的 ExoPlayer 引擎 ✨✨✨
     def exoplayer_version = '2.14.2' // 这是一个能在 KitKat 上稳定运行的版本
