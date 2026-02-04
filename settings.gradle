@@ -1,30 +1,43 @@
 pluginManagement {
     repositories {
+        // 优先使用国内镜像
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
         gradlePluginPortal()
-        mavenCentral()
-        jcenter()
         google()
+        mavenCentral()
     }
 }
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-        maven { url 'https://download.01.org/crosswalk/releases/crosswalk/android/maven2' }
-        mavenCentral()
-        jcenter()
+        // 1. 优先使用阿里云镜像，速度起飞！
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        
+        // 2. JitPack 也用国内镜像
+        maven { url 'https://jitpack.io' }
+        maven { url 'https://www.jitpack.io' } // 双地址保险
+
+        // 3. 保留官方源作为备用
         google()
+        mavenCentral()
+        jcenter() // 虽然已废弃，但有些老库还在用
+
+        // 4. 保留你的本地和特殊源
         flatDir {
             dirs "$rootDir/app/libs"
         }
-        maven {
-            url "https://jitpack.io"
-        }
+        maven { url 'https://download.01.org/crosswalk/releases/crosswalk/android/maven2' }
         maven {
             url "http://4thline.org/m2"
             allowInsecureProtocol = true
         }
     }
 }
+
+// --- 核心：只包含 kitkat 分支下确实存在的模块！ ---
 include ':app'
 include ':hook'
 include ':tvbus'
@@ -35,4 +48,5 @@ include ':thunder'
 include ':jianpian'
 include ':forcetech'
 include ':ijkplayer'
+
 rootProject.name = "TV"
